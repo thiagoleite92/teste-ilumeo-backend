@@ -1,0 +1,17 @@
+### Variables
+
+@apiUrl = http://localhost:5555/api
+
+### Health
+GET {{apiUrl}}/health HTTP/1.1
+
+### Get Emploee Log
+
+POST {{apiUrl}}/employee HTTP/1.1
+Content-Type: application/json
+
+{
+  "employeeCode": "1iW94K"
+}
+
+###

@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Employees {
+  id           Int          @id @default(autoincrement())
+  employeeCode String       @unique @map("employee_code")
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+  WorkShifts   WorkShifts[]
+
+  @@map("table_employees")
+}
+
+model WorkShifts {
+  id         Int       @id @default(autoincrement())
+  employeeId Int       @map("employee_id")
+  entryTime  DateTime  @map("entry_time")
+  exitTime   DateTime? @map("exit_time")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  employee Employees @relation(fields: [employeeId], references: [id])
+
+  @@map("table_work_shifts")
+}

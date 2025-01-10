@@ -1,0 +1,48 @@
+import { WorkShifts } from '@prisma/client';
+import { WorkShiftInterface } from '../interfaces/workshift-interface';
+
+export class InMemoryWorkShiftRepository implements WorkShiftInterface {
+  public items: WorkShifts[] = [];
+  private id: number = 1;
+  async findHistoryByEmployeeId(employeeId: number): Promise<WorkShifts[]> {
+    return this.items.filter((item) => item.employeeId === employeeId);
+  }
+  async registerEmployeeEntryTime({
+    employeeId,
+  }: {
+    employeeId: number;
+  }): Promise<void> {
+    this.items.push({
+      id: this.id,
+      createdAt: new Date(),
+      employeeId,
+      exitTime: null,
+      entryTime: new Date(),
+      updatedAt: new Date(),
+    });
+
+    this.id += 1;
+  }
+  async registerEmployeeExitTime({
+    workShiftId,
+    employeeId,
+  }: {
+    workShiftId: number;
+    employeeId: number;
+  }): Promise<void> {
+    this.items.find(
+      (item) => item.id === workShiftId && employeeId === item.employeeId
+    )!.exitTime = new Date();
+  }
+  async findOpenRegister({
+    employeeId,
+  }: {
+    employeeId: number;
+  }): Promise<WorkShifts | null> {
+    return (
+      this.items.find(
+        (item) => item.employeeId === employeeId && item.exitTime === null
+      ) ?? null
+    );
+  }
+}
