@@ -1,8 +1,8 @@
-import messages from '@errors/messages';
-import { OpenRegisterError } from '@errors/open-register';
-import { ResourceNotFoundError } from '@errors/resource-not-found';
-import { EmployeeInterface } from '@repositories/interfaces/employee-interface';
-import { WorkShiftInterface } from '@repositories/interfaces/workshift-interface';
+import messages from '../errors/messages';
+import { OpenRegisterError } from '../errors/open-register';
+import { ResourceNotFoundError } from '../errors/resource-not-found';
+import { EmployeeInterface } from '../repositories/interfaces/employee-interface';
+import { WorkShiftInterface } from '../repositories/interfaces/workshift-interface';
 
 export class WorkShiftEntryTimeService {
   constructor(
