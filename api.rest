@@ -1,17 +1,18 @@
 ### Variables
-
 @apiUrl = http://localhost:5555/api
+@code = {{employeeCode.response.body.code}}
 
-### Health
-GET {{apiUrl}}/health HTTP/1.1
+### Health Check
+GET {{apiUrl}}/health
 
-### Get Emploee Log
+### Generate Employee Code
+# @name employeeCode
+POST {{apiUrl}}/employee/generate-code
 
-POST {{apiUrl}}/employee HTTP/1.1
+### Employee Log
+POST {{apiUrl}}/employee
 Content-Type: application/json
 
 {
-  "employeeCode": "1iW94K"
+  "employeeCode": "{{code}}"
 }
-
-###
