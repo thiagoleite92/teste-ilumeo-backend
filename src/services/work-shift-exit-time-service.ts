@@ -1,4 +1,4 @@
-import messages from '../errors/messages';
+import messages from '../utils/messages';
 import { ResourceNotFoundError } from '../errors/resource-not-found';
 import { EmployeeInterface } from '../repositories/interfaces/employee-interface';
 import { WorkShiftInterface } from '../repositories/interfaces/workshift-interface';

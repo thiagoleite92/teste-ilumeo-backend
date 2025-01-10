@@ -1,5 +1,4 @@
 import { prisma } from '../lib/prisma';
-import { generateCode } from '../utils/generateCode';
 import { EmployeeInterface } from './interfaces/employee-interface';
 
 export class EmployeeRepository implements EmployeeInterface {
@@ -7,15 +6,11 @@ export class EmployeeRepository implements EmployeeInterface {
     return await prisma.employees.findUnique({ where: { employeeCode } });
   }
 
-  async generateEmployeeCode(): Promise<string> {
-    const employeeCode = generateCode();
-
+  async generateEmployeeCode(employeeCode: string): Promise<void> {
     await prisma.employees.create({
       data: {
         employeeCode,
       },
     });
-
-    return employeeCode;
   }
 }

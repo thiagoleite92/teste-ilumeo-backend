@@ -1,10 +1,11 @@
-import { makeEmployeeLogService } from '@services/factories/make-employee-log-service';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
+import { makeWorkShiftEntryService } from '../services/factories/make-work-shift-entry-service';
+import messages from '../utils/messages';
 
 export const workShiftEntryTimeController = async (
   req: FastifyRequest,
-  rep: FastifyReply,
+  rep: FastifyReply
 ) => {
   const bodySchema = z.object({
     employeeCode: z.string().min(1).max(6),
@@ -12,9 +13,9 @@ export const workShiftEntryTimeController = async (
 
   const { employeeCode } = bodySchema.parse(req?.body);
 
-  const employeeLogService = makeEmployeeLogService();
+  const workShiftEntryService = makeWorkShiftEntryService();
 
-  const employeeLogResponse = await employeeLogService.execute(employeeCode);
+  await workShiftEntryService.execute(employeeCode);
 
-  return rep.status(200).send({ employeeLogResponse });
+  return rep.status(200).send({ message: messages.registerEntryTime });
 };
