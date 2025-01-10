@@ -23,9 +23,11 @@ describe('Service => work shit exit', () => {
   });
 
   it('should throw an error => ResourceNotFound with no open register', async () => {
-    const employeeCode = await employeeRepository.generateEmployeeCode();
+    const code = '123acb';
 
-    const employee = await employeeRepository.findByCode(employeeCode);
+    await employeeRepository.generateEmployeeCode(code);
+
+    const employee = await employeeRepository.findByCode(code);
 
     await workShiftRepository.registerEmployeeEntryTime({
       employeeId: employee!.id,
@@ -40,15 +42,17 @@ describe('Service => work shit exit', () => {
       workShiftId: openRegister!.id,
     });
 
-    await expect(() => sut.execute(employeeCode)).rejects.toBeInstanceOf(
+    await expect(() => sut.execute(code)).rejects.toBeInstanceOf(
       ResourceNotFoundError
     );
   });
 
   it('should be able to register exit', async () => {
-    const employeeCode = await employeeRepository.generateEmployeeCode();
+    const code = '123acb';
 
-    const employee = await employeeRepository.findByCode(employeeCode);
+    await employeeRepository.generateEmployeeCode(code);
+
+    const employee = await employeeRepository.findByCode(code);
 
     await workShiftRepository.registerEmployeeEntryTime({
       employeeId: employee!.id,
@@ -60,7 +64,7 @@ describe('Service => work shit exit', () => {
 
     expect(register?.exitTime).toBeNull();
 
-    await sut.execute(employeeCode);
+    await sut.execute(code);
 
     expect(register?.exitTime).not.toBeNull();
   });

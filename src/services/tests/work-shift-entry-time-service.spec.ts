@@ -27,25 +27,29 @@ describe('Service => work shit entry', () => {
   });
 
   it('should be able to register an entry time', async () => {
-    const employeeCode = await employeeRepository.generateEmployeeCode();
+    const code = '123abc';
 
-    await sut.execute(employeeCode);
+    await employeeRepository.generateEmployeeCode(code);
 
-    const history = await employeeRepository.findByCode(employeeCode);
+    await sut.execute(code);
+
+    const history = await employeeRepository.findByCode(code);
 
     expect([history]).toHaveLength(1);
   });
 
   it('shoulde throw an error => OpenRegisterError with a register already open', async () => {
-    const employeeCode = await employeeRepository.generateEmployeeCode();
+    const code = '123abc';
 
-    const employee = await employeeRepository.findByCode(employeeCode);
+    await employeeRepository.generateEmployeeCode(code);
+
+    const employee = await employeeRepository.findByCode(code);
 
     await workShiftRepository.registerEmployeeEntryTime({
       employeeId: employee!.id,
     });
 
-    await expect(() => sut.execute(employeeCode)).rejects.toBeInstanceOf(
+    await expect(() => sut.execute(code)).rejects.toBeInstanceOf(
       OpenRegisterError
     );
   });

@@ -23,23 +23,27 @@ describe('Service => employee history', () => {
   });
 
   it('should return an empty array when no history exists for a given employeeCode', async () => {
-    const employeeCode = await employeeRepository.generateEmployeeCode();
+    const code = '123abc';
 
-    const history = await sut.execute(employeeCode);
+    await employeeRepository.generateEmployeeCode(code);
+
+    const history = await sut.execute(code);
 
     expect(history).toHaveLength(0);
   });
 
   it('should return a arry with history for a given employeeCode', async () => {
-    const employeeCode = await employeeRepository.generateEmployeeCode();
+    const code = '123abc';
 
-    const employee = await employeeRepository.findByCode(employeeCode);
+    await employeeRepository.generateEmployeeCode(code);
+
+    const employee = await employeeRepository.findByCode(code);
 
     workShiftRepository.registerEmployeeEntryTime({ employeeId: employee!.id });
     workShiftRepository.registerEmployeeEntryTime({ employeeId: employee!.id });
     workShiftRepository.registerEmployeeEntryTime({ employeeId: employee!.id });
 
-    const history = await sut.execute(employeeCode);
+    const history = await sut.execute(code);
 
     expect(history).toHaveLength(3);
   });
