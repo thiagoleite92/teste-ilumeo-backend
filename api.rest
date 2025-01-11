@@ -16,3 +16,23 @@ Content-Type: application/json
 {
   "employeeCode": "{{code}}"
 }
+
+### Work Shift Entry Time
+POST {{apiUrl}}/work-shift/entry-time
+Content-Type: application/json
+
+{
+  "employeeCode": "{{code}}"
+}
+
+###
+
+### Work Shift Exit Time
+POST {{apiUrl}}/work-shift/exit-time
+Content-Type: application/json
+
+{
+  "employeeCode": "{{code}}"
+}
+
+###

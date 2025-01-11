@@ -4,6 +4,8 @@ import { healthRoute } from '../routes/health-route';
 import { employeeRoute } from '../routes/employee-route';
 import { ResourceNotFoundError } from '../errors/resource-not-found';
 import { env } from '../env';
+import { workShiftRoute } from '../routes/work-shift-route';
+import { OpenRegisterError } from '../errors/open-register';
 
 export const app = fastify();
 
@@ -13,6 +15,10 @@ app.register(healthRoute, {
 
 app.register(employeeRoute, {
   prefix: '/api/employee',
+});
+
+app.register(workShiftRoute, {
+  prefix: '/api/work-shift',
 });
 
 app.setErrorHandler((error, _, reply) => {
@@ -27,6 +33,10 @@ app.setErrorHandler((error, _, reply) => {
   }
 
   if (error instanceof ResourceNotFoundError) {
+    return reply.status(401).send({ message: error.message });
+  }
+
+  if (error instanceof OpenRegisterError) {
     return reply.status(401).send({ message: error.message });
   }
 
