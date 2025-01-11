@@ -19,8 +19,6 @@ export class GenerateEmployeeCodeService {
       }
     }
 
-    await this.employeeRepository.generateEmployeeCode(employeeCode);
-
-    return employeeCode;
+    return this.employeeRepository.generateEmployeeCode(employeeCode);
   }
 }

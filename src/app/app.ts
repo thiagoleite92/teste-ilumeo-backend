@@ -1,4 +1,5 @@
 import fastify from 'fastify';
+import cors from '@fastify/cors';
 import { ZodError } from 'zod';
 import { healthRoute } from '../routes/health-route';
 import { employeeRoute } from '../routes/employee-route';
@@ -8,6 +9,10 @@ import { workShiftRoute } from '../routes/work-shift-route';
 import { OpenRegisterError } from '../errors/open-register';
 
 export const app = fastify();
+
+app.register(cors, {
+  origin: '*',
+});
 
 app.register(healthRoute, {
   prefix: '/api/health',

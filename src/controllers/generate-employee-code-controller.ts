@@ -7,7 +7,7 @@ export const generateEmployeeCodeController = async (
 ) => {
   const generateCodeEmployeeService = makeGenerateEmployeeCodeService();
 
-  const employeeCode = await generateCodeEmployeeService.execute();
+  const { employeeCode, id } = await generateCodeEmployeeService.execute();
 
-  return rep.status(200).send({ code: employeeCode });
+  return rep.status(201).send({ id, employeeCode });
 };
