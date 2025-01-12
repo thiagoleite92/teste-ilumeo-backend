@@ -6,14 +6,14 @@ export interface WorkShiftInterface {
     employeeId,
   }: {
     employeeId: number;
-  }): Promise<void>;
+  }): Promise<WorkShifts>;
   registerEmployeeExitTime({
     workShiftId,
     employeeId,
   }: {
     workShiftId: number;
     employeeId: number;
-  }): Promise<void>;
+  }): Promise<WorkShifts>;
   findOpenRegister({
     employeeId,
   }: {

@@ -11,8 +11,8 @@ export class WorkShiftRepository implements WorkShiftInterface {
     employeeId,
   }: {
     employeeId: number;
-  }): Promise<void> {
-    await prisma.workShifts.create({
+  }): Promise<WorkShifts> {
+    return prisma.workShifts.create({
       data: {
         employeeId,
         entryTime: new Date(),
@@ -27,8 +27,8 @@ export class WorkShiftRepository implements WorkShiftInterface {
   }: {
     workShiftId: number;
     employeeId: number;
-  }): Promise<void> {
-    await prisma.workShifts.update({
+  }): Promise<WorkShifts> {
+    return prisma.workShifts.update({
       where: { id: workShiftId, employeeId },
       data: {
         exitTime: new Date(),

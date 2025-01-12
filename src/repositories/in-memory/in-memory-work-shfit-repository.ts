@@ -11,8 +11,8 @@ export class InMemoryWorkShiftRepository implements WorkShiftInterface {
     employeeId,
   }: {
     employeeId: number;
-  }): Promise<void> {
-    this.items.push({
+  }): Promise<WorkShifts> {
+    const index = this.items.push({
       id: this.id,
       createdAt: new Date(),
       employeeId,
@@ -22,6 +22,7 @@ export class InMemoryWorkShiftRepository implements WorkShiftInterface {
     });
 
     this.id += 1;
+    return this.items[index];
   }
   async registerEmployeeExitTime({
     workShiftId,
@@ -29,10 +30,12 @@ export class InMemoryWorkShiftRepository implements WorkShiftInterface {
   }: {
     workShiftId: number;
     employeeId: number;
-  }): Promise<void> {
+  }): Promise<WorkShifts> {
     this.items.find(
       (item) => item.id === workShiftId && employeeId === item.employeeId
     )!.exitTime = new Date();
+
+    return this.items.find((item) => item.id === workShiftId)!;
   }
   async findOpenRegister({
     employeeId,

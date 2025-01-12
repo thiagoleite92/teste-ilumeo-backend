@@ -9,12 +9,11 @@ export const employeeLogController = async (
   const bodySchema = z.object({
     employeeCode: z.string().min(1).max(6),
   });
-
   const { employeeCode } = bodySchema.parse(req?.body);
 
   const employeeLogService = makeEmployeeLogService();
 
-  const employeeLogResponse = await employeeLogService.execute(employeeCode);
+  const employeeLogs = await employeeLogService.execute(employeeCode);
 
-  return rep.status(200).send({ employeeLogResponse });
+  return rep.status(200).send({ employeeLogs });
 };

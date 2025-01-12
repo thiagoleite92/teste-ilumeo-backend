@@ -1,6 +1,6 @@
 ### Variables
 @apiUrl = http://localhost:5555/api
-@code = {{employeeCode.response.body.code}}
+@code = {{employeeCode.response.body.employeeCode}}
 
 ### Health Check
 GET {{apiUrl}}/health

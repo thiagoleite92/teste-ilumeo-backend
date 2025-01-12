@@ -15,7 +15,9 @@ export const workShiftEntryTimeController = async (
 
   const workShiftEntryService = makeWorkShiftEntryService();
 
-  await workShiftEntryService.execute(employeeCode);
+  const entryTime = await workShiftEntryService.execute(employeeCode);
 
-  return rep.status(200).send({ message: messages.registerEntryTime });
+  return rep
+    .status(201)
+    .send({ message: messages.registerEntryTime, entryTime });
 };

@@ -13,12 +13,18 @@ export class InMemoryEmployeeRepository implements EmployeeInterface {
     return findEmployee ? findEmployee : null;
   }
 
-  async generateEmployeeCode(employeeCode: string): Promise<void> {
+  async generateEmployeeCode(employeeCode: string): Promise<Employees> {
     this.items.push({
       id: this.id,
       employeeCode,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
+
+    return this.items[this.items.length - 1];
+  }
+
+  async getAllEmployeeCodes(): Promise<Employees[]> {
+    return this.items;
   }
 }

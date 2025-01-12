@@ -18,6 +18,6 @@ describe('Service => generate code employee', () => {
     const employeeCode = await sut.execute();
 
     expect(employeeCode).toBeDefined();
-    expect(employeeCode).toMatch(codePattern);
+    expect(employeeCode.employeeCode).toMatch(codePattern);
   });
 });
