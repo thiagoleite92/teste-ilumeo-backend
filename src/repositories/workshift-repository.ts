@@ -5,7 +5,10 @@ import { currentTime } from '../utils/currentTime';
 
 export class WorkShiftRepository implements WorkShiftInterface {
   async findHistoryByEmployeeId(employeeId: number): Promise<WorkShifts[]> {
-    return prisma.workShifts.findMany({ where: { employeeId: employeeId } });
+    return prisma.workShifts.findMany({
+      where: { employeeId: employeeId },
+      orderBy: { createdAt: 'desc' },
+    });
   }
 
   async registerEmployeeEntryTime({
