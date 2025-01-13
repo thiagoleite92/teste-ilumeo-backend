@@ -1,6 +1,7 @@
 import { WorkShifts } from '@prisma/client';
 import { WorkShiftInterface } from './interfaces/workshift-interface';
 import { prisma } from '../lib/prisma';
+import { currentTime } from '../utils/currentTime';
 
 export class WorkShiftRepository implements WorkShiftInterface {
   async findHistoryByEmployeeId(employeeId: number): Promise<WorkShifts[]> {
@@ -15,7 +16,7 @@ export class WorkShiftRepository implements WorkShiftInterface {
     return prisma.workShifts.create({
       data: {
         employeeId,
-        entryTime: new Date(),
+        entryTime: currentTime(),
         exitTime: null,
       },
     });
@@ -31,7 +32,7 @@ export class WorkShiftRepository implements WorkShiftInterface {
     return prisma.workShifts.update({
       where: { id: workShiftId, employeeId },
       data: {
-        exitTime: new Date(),
+        exitTime: currentTime(),
       },
     });
   }

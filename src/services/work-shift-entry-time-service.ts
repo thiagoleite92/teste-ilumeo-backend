@@ -27,6 +27,8 @@ export class WorkShiftEntryTimeService {
       throw new OpenRegisterError(messages.openRegisterError);
     }
 
-    await this.workShiftRepository.registerEmployeeEntryTime({ employeeId });
+    return await this.workShiftRepository.registerEmployeeEntryTime({
+      employeeId,
+    });
   }
 }

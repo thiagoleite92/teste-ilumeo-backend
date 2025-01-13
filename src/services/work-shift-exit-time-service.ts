@@ -26,7 +26,7 @@ export class WorkShiftExitTimeService {
       throw new ResourceNotFoundError(messages.registerOpenNotFound);
     }
 
-    await this.workShiftRepository.registerEmployeeExitTime({
+    return await this.workShiftRepository.registerEmployeeExitTime({
       employeeId: id,
       workShiftId: openRegister.id,
     });
